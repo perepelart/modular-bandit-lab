@@ -41,7 +41,7 @@ The framework supports a comprehensive suite of decoupled Agents and Environment
 *   **Gradient Bandit:** Softmax action selection using preference learning ($H_t$) and optional reward baselines.
 
 ### Environments
-*   **Stationary Gaussian Bandit:** $q_*(a)$ values are fixed; rewards are drawn from $\mathcal{N}(q_*(a), \sigma^2)$.
+*   **Stationary Gaussian Bandit:** $q_\*(a)$ values are fixed; rewards are drawn from $\mathcal{N}(q_*(a), \sigma^2)$.
 *   **Drifting Gaussian Bandit (Non-Stationary):** $q_*(a)$ values follow a random walk (Brownian motion) at every time step, requiring agents to track changing dynamics.
 
 
@@ -51,15 +51,15 @@ To achieve a unified and maintainable solution for experimentation, the codebase
 ### 1. Mathematical Abstraction & Inheritance
 The code structure reflects the theoretical interaction between Agent and Environment, ensuring that experiments test the *algorithm*, not implementation details.
 
-*   **Polymorphism (`BaseAgent`):** All agents (Gradient, UCB, Greedy) share a strict interface. This allows for environment agnosticism, where agents can be swapped seamlessly between Stationary and Drifting environments without code changes.
-*   **Shared Logic (`QValueBasedAgent`):** A specialized intermediate class implements logic shared by both $\varepsilon$-greedy and UCB agents — specifically, the storage of value estimates ($Q_t$), action counts ($N_t$), and optimistic initialization. This ensures that properties like "Optimism" are implemented once as a configurable property and inherited consistently by any value-based learner.
-*   **Distinct Architectures (`GradientAgent`):** Algorithms that do not rely on value estimation (like Gradient Bandits) inherit directly from `BaseAgent`, accurately reflecting their theoretical distinction from Q-learning methods.
+*   **Polymorphism ([`BaseAgent`](agents/base_agent.py)):** All agents ([Gradient](agents/gradient_agent.py), [UCB](agents/ucb_agent.py), [Greedy](agents/epsilon_greedy_agent.py)) share a strict interface. This allows for environment agnosticism, where agents can be swapped seamlessly between Stationary and Drifting environments without code changes.
+*   **Shared Logic ([`QValueBasedAgent`](agents/q_value_based_agent.py)):** A specialized intermediate class implements logic shared by both $\varepsilon$-greedy and UCB agents — specifically, the storage of value estimates ($Q_t$), action counts ($N_t$), and optimistic initialization. This ensures that properties like "Optimism" are implemented once as a configurable property and inherited consistently by any value-based learner.
+*   **Distinct Architectures ([`GradientAgent`](agents/gradient_agent.py)):** Algorithms that do not rely on value estimation (like Gradient Bandits) inherit directly from `BaseAgent`, accurately reflecting their theoretical distinction from Q-learning methods.
 
 ### 2. Separation of Concerns (Mixins)
 In scientific computing, plotting code often "pollutes" algorithmic logic. This project uses mixins across the entire codebase to strictly separate core math from visualization.
 
-*   **Core Logic:** Files like `agents/ucb_agent.py` or `environments/drifting_gaussian_bandit.py` contain *only* the mathematical definitions and update rules.
-*   **Visualization:** Dedicated mixins (e.g., `UCBPlottingMixin`, `DriftingGaussianBanditMixin`) handle MathJax rendering, LaTeX description extraction, and Plotly trace styling.
+*   **Core Logic:** Files like [`agents/ucb_agent.py`](agents/ucb_agent.py) or [`environments/drifting_gaussian_bandit.py`](environments/drifting_gaussian_bandit.py) contain *only* the mathematical definitions and update rules.
+*   **Visualization:** Dedicated mixins (e.g., [`UCBPlottingMixin`](agents/agents_mixins/ucb_plotting_mixin.py), [`DriftingGaussianBanditMixin`](environments/drifting_gaussian_bandit.py)) handle MathJax rendering, LaTeX description extraction, and Plotly trace styling.
 *   **Benefit:** This ensures that the algorithmic core remains pristine and easily auditable by researchers, while still producing publication-quality figures with rich metadata.
 
 ## 📊 Visualization Capabilities
@@ -83,7 +83,7 @@ and Andrew G. Barto.)
 ### 1. Installation
 Clone the repository and install the dependencies:
 ```bash
-git clone <repository_url>
+git clone https://github.com/perepelart/modular-bandit-lab
 cd modular-bandit-lab
 pip install -r requirements.txt
 ```
@@ -210,17 +210,19 @@ modular-bandit-lab/
 ```
 
 ## 🗺️ Roadmap
+
 The following features are currently planned for future releases to support advanced research topics:
 
-*   **Contextual Bandits:**
-    - [ ] Extend `BaseAgent` API to handle state vectors ($S_t$).
-*   **Bayesian Methods:**
-    - [ ] Implement **Thompson Sampling** (posterior-based exploration).
-*   **Optimal Frequentist Policies:**
-    - [ ] Implement **Minimum Empirical Divergence (MED)**.
-    - [ ] Implement **KL-UCB** (asymptotical optimality via large deviation theory).
-*   **Bounded Support:**
-    - [ ] Add **Bernoulli** and **Beta-distributed** environments.
+- **Contextual Bandits**
+  - [ ] Extend [`BaseAgent`](agents/base_agent.py) API to handle state vectors.
+- **Bayesian Methods**
+  - [ ] Implement **Thompson Sampling** (posterior-based exploration).
+- **Optimal Frequentist Policies**
+  - [ ] Implement **Minimum Empirical Divergence (MED)**.
+  - [ ] Implement **KL-UCB** (asymptotic optimality via large deviation theory).
+- **Bounded Support**
+  - [ ] Add **Bernoulli** and **Beta-distributed** environments.
+
 
 ## 🧠 Why Multi-Armed Bandits?
 
