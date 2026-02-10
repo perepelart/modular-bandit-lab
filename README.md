@@ -81,10 +81,21 @@ and Andrew G. Barto. Interactive HTML versions with zoomable traces are availabl
 ## 🚀 Usage
 
 ### 1. Installation
-Clone the repository and install the dependencies:
+Clone the repository, set up a virtual environment and install the dependencies:
 ```bash
 git clone https://github.com/perepelart/modular-bandit-lab
 cd modular-bandit-lab
+
+# Create a virtual environment
+python3 -m venv venv
+
+# Activate the environment
+# On Linux/macOS:
+source venv/bin/activate
+# On Windows:
+# venv\Scripts\activate
+
+# Install dependencies
 pip install -r requirements.txt
 ```
 
