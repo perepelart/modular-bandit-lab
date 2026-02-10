@@ -243,7 +243,7 @@ foundation for modern decision-making systems:
 
 3.  **Mathematical Foundations:** For researchers, bandits offer a tractable 
     setting to rigorously study convergence, regret bounds, and exploration 
-    strategies before scaling to deep RL. Understanding optimality in the bandit 
+    strategies before scaling to full RL. Understanding optimality in the bandit 
     setting provides intuition for more complex MDPs.
 
 This project implements classical (non-contextual) bandits to rigorously study these foundational principles, with plans to extend to contextual variants (see Roadmap).
