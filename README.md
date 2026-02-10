@@ -1,6 +1,6 @@
-# Modular Bandit Lab
-
 <div align="center">
+    
+# Modular Bandit Lab
 
 **A Unified Research Framework for Multi-Armed Bandit Algorithms.**
 
