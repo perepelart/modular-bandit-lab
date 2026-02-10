@@ -14,7 +14,7 @@ exploration-exploitation trade-off in Reinforcement Learning.
 
 While many implementations of bandit algorithms exist, they often couple mathematical logic with execution details, making rigorous comparison and extension difficult. This project solves that by treating the simulation as a modular software system.
 
-The goal was not just to reproduce standard results (Sutton & Barto, 2020), but to create a scalable testbed for:
+The goal was not just to reproduce standard results from [Reinforcement Learning: An Introduction (Sutton & Barto, 2020)](http://incompleteideas.net/book/the-book.html), but to create a scalable testbed for:
 1.  **Algorithmic Stability Analysis:** Testing how agents behave under non-stationary conditions and varying reward distributions.
 2.  **Theoretical Verification:** Confirming hypotheses, such as the sensitivity of optimistic initialization to affine reward transformations.
 3.  **Reproducibility:** Ensuring that stochastic experiments are seeded, tracked, and strictly separated from visualization logic.
@@ -53,7 +53,7 @@ The code structure reflects the theoretical interaction between Agent and Enviro
 
 *   **Polymorphism ([`BaseAgent`](agents/base_agent.py)):** All agents ([Gradient](agents/gradient_agent.py), [UCB](agents/ucb_agent.py), [Greedy](agents/epsilon_greedy_agent.py)) share a strict interface. This allows for environment agnosticism, where agents can be swapped seamlessly between Stationary and Drifting environments without code changes.
 *   **Shared Logic ([`QValueBasedAgent`](agents/q_value_based_agent.py)):** A specialized intermediate class implements logic shared by both $\varepsilon$-greedy and UCB agents — specifically, the storage of value estimates ($Q_t$), action counts ($N_t$), and optimistic initialization. This ensures that properties like "Optimism" are implemented once as a configurable property and inherited consistently by any value-based learner.
-*   **Distinct Architectures ([`GradientAgent`](agents/gradient_agent.py)):** Algorithms that do not rely on value estimation (like Gradient Bandits) inherit directly from `BaseAgent`, accurately reflecting their theoretical distinction from Q-learning methods.
+*   **Distinct Architectures ([`GradientAgent`](agents/gradient_agent.py)):** Algorithms that do not rely on value estimation (like Gradient Bandits) inherit directly from [`BaseAgent`](agents/base_agent.py), accurately reflecting their theoretical distinction from Q-learning methods.
 
 ### 2. Separation of Concerns (Mixins)
 In scientific computing, plotting code often "pollutes" algorithmic logic. This project uses mixins across the entire codebase to strictly separate core math from visualization.
@@ -63,7 +63,7 @@ In scientific computing, plotting code often "pollutes" algorithmic logic. This 
 *   **Benefit:** This ensures that the algorithmic core remains pristine and easily auditable by researchers, while still producing publication-quality figures with rich metadata.
 
 ## 📊 Visualization Capabilities
-The framework includes a custom **Plotly-based** visualization engine that ensures rigorous representation of stochastic behavior through standard deviation bands
+The framework includes a custom [**Plotly-based**](plotting/learning_curve.py) visualization engine that ensures rigorous representation of stochastic behavior through standard deviation bands
 and multi-run averaging.
 *   **Interactive Dynamics:** Unlike static images, the generated HTML plots allow researchers to zoom, pan, and isolate specific traces to analyze dynamics at specific time steps.
 *   **Statistical Shading:** Automatic rendering of standard deviation bands to visualize the variance across runs.
@@ -76,7 +76,7 @@ and multi-run averaging.
 (Above: Generated plots comparing sample-average vs. constant step-size agents 
 in a non-stationary environment, replicating Exercise 2.5 (p. 33) from 
 *Reinforcement Learning: An Introduction* (2nd ed., 2020) by Richard S. Sutton 
-and Andrew G. Barto.)
+and Andrew G. Barto. Interactive HTML versions with zoomable traces are available in [`images/`](images) — download and open locally in a browser to explore.)
 
 ## 🚀 Usage
 
