@@ -42,7 +42,7 @@ The framework supports a comprehensive suite of decoupled Agents and Environment
 
 ### Environments
 *   **Stationary Gaussian Bandit:** $q_\*(a)$ values are fixed; rewards are drawn from $\mathcal{N}(q_*(a), \sigma^2)$.
-*   **Drifting Gaussian Bandit (Non-Stationary):** $q_*(a)$ values follow a random walk (Brownian motion) at every time step, requiring agents to track changing dynamics.
+*   **Drifting Gaussian Bandit (Non-Stationary):** $q_*(a)$ values follow a Gaussian random walk at every time step, requiring agents to track changing dynamics.
 
 
 ## 🏗️ Architecture: OOP as a Research Enabler
