@@ -156,7 +156,7 @@ def run_stress_test(verbose):
     testbed_result = testbed.execute(n_runs=1000, t_steps=2000, verbose=verbose)
     
     learning_curve = LearningCurve(testbed_result, plot_name = "Stress Test")
-    learning_curve.plot("Mean Reward")
+    learning_curve.plot("Mean Reward", verbose=verbose)
 ```
 
 #### Step 3: Register in CLI
